@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.ediaryphysicalactivity.MainActivity">
     <item
+        android:id="@+id/send_data"
+        android:orderInCategory="1"
+        android:title="@string/send_data" />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

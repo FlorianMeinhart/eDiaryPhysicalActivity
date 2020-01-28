@@ -37,8 +37,8 @@ public class EDiaryEntriesAdapter extends RecyclerView.Adapter<EDiaryEntriesAdap
         //System.out.println("onBindViewHolder. position: " + position);
 
         EDiaryEntry e = eDiaryEntryList.get(position);
-        holder.textViewCardFirst.setText(e.getAttr_str_1());
-        holder.textViewCardSecond.setText(e.getAttr_str_2());
+        holder.textViewCardFirst.setText(e.getDate_time_str());
+        holder.textViewCardSecond.setText(e.getAttr_str_1());
     }
 
     @Override
@@ -70,7 +70,7 @@ public class EDiaryEntriesAdapter extends RecyclerView.Adapter<EDiaryEntriesAdap
 
             EDiaryEntry entry = eDiaryEntryList.get(getAdapterPosition());
 
-            Intent intent = new Intent(mCtx, UpdateEDiaryEntryActivity.class);
+            Intent intent = new Intent(mCtx, UpdateEntryActivity.class);
             intent.putExtra("entry", entry);
 
             mCtx.startActivity(intent);

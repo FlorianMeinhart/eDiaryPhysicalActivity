@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddEntryActivity">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:orientation="vertical"
+            android:paddingVertical="25dp"
+            android:paddingHorizontal="10dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:text="New Entry"
+                android:textColor="@color/colorPrimaryDark"
+                android:textAlignment="center"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline" />
+
+            <TextView
+                android:id="@+id/text_view_date_time"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" />
+
+            <EditText
+                android:id="@+id/edit_text_attr_1"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Attribute 1"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_attr_2"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Attribute 2"
+                android:layout_marginTop="15dp"/>
+
+            <EditText
+                android:id="@+id/edit_text_attr_3"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Attribute 3"
+                android:layout_marginTop="15dp"/>
+
+            <CheckedTextView
+                android:id="@+id/checkedtextview_attr_4"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+                android:text="Checkbox for Attribute 4"/>
+
+            <TextView
+                android:id="@+id/text_view_attr_5"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="Attribute 5"/>
+            <SeekBar
+                android:id="@+id/seekbar_attr_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:max="8"
+                android:progress="4"
+                android:theme="@style/Widget.AppCompat.SeekBar.Discrete" />
+
+            <TextView
+                android:id="@+id/text_view_attr_6"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="Attribute 6"/>
+            <RadioGroup
+                android:id="@+id/radio_group_attr_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/radio_attr_6_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 1"
+                    android:checked="true"
+                    android:textSize="@dimen/text_attr" />
+                <RadioButton
+                    android:id="@+id/radio_attr_6_2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 2"
+                    android:layout_marginTop="10dp"
+                    android:checked="false"
+                    android:textSize="@dimen/text_attr" />
+                <RadioButton
+                    android:id="@+id/radio_attr_6_3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 3"
+                    android:layout_marginTop="10dp"
+                    android:checked="false"
+                    android:textSize="@dimen/text_attr" />
+                <RadioButton
+                    android:id="@+id/radio_attr_6_4"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Option 4"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:checked="false"
+                    android:textSize="@dimen/text_attr" />
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/text_view_attr_7"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:text="Attribute 7" />
+            <RatingBar
+                android:id="@+id/rating_bar_attr_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_centerVertical="true"
+                android:rating="2.5"
+                android:numStars="5"
+                android:stepSize="0.5" />
+
+            <TextView
+                android:id="@+id/text_view_attr_8"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:hint="Date: Attribute 8" />
+            <Button
+                android:id="@+id/button_date"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_grey"
+                android:text="Select date"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/text_view_attr_9"
+                android:textSize="@dimen/text_attr"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:hint="Time: Attribute 9" />
+            <Button
+                android:id="@+id/button_time"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/button_grey"
+                android:text="Select time"
+                android:textAllCaps="false"/>
+
+
+            <Button
+                android:id="@+id/button_save"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/button_blue"
+                android:text="Save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorLight" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

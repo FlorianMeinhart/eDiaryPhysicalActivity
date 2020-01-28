@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-public class UpdateEDiaryEntryActivity extends AppCompatActivity {
+public class UpdateEntryActivity extends AppCompatActivity {
 
     private EditText editTextAttr1, editTextAttr2, editTextAttr3;
     private CheckBox checkBoxAttr4;
@@ -46,7 +46,7 @@ public class UpdateEDiaryEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateEDiaryEntryActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(UpdateEntryActivity.this);
                 builder.setTitle("Are you sure?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -82,19 +82,7 @@ public class UpdateEDiaryEntryActivity extends AppCompatActivity {
 
         if (sAttr1.isEmpty()) {
             editTextAttr1.setError("Text required");
-            editTextAttr2.requestFocus();
-            return;
-        }
-
-        if (sAttr2.isEmpty()) {
-            editTextAttr2.setError("Text required");
-            editTextAttr3.requestFocus();
-            return;
-        }
-
-        if (sAttr3.isEmpty()) {
-            editTextAttr3.setError("Text required");
-            editTextAttr3.requestFocus();
+            editTextAttr1.requestFocus();
             return;
         }
 
@@ -117,7 +105,7 @@ public class UpdateEDiaryEntryActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_LONG).show();
                 finish();
-                startActivity(new Intent(UpdateEDiaryEntryActivity.this, MainActivity.class));
+                startActivity(new Intent(UpdateEntryActivity.this, ShowEntriesActivity.class));
             }
         }
 
@@ -141,7 +129,7 @@ public class UpdateEDiaryEntryActivity extends AppCompatActivity {
                 super.onPostExecute(aVoid);
                 Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_LONG).show();
                 finish();
-                startActivity(new Intent(UpdateEDiaryEntryActivity.this, MainActivity.class));
+                startActivity(new Intent(UpdateEntryActivity.this, ShowEntriesActivity.class));
             }
         }
 
