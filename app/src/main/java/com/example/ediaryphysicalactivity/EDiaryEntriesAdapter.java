@@ -74,6 +74,7 @@ public class EDiaryEntriesAdapter extends RecyclerView.Adapter<EDiaryEntriesAdap
             intent.putExtra("entry", entry);
 
             mCtx.startActivity(intent);
+            ((ShowEntriesActivity) mCtx).finish();
         }
     }
 

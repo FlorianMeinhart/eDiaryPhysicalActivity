@@ -33,7 +33,7 @@ public class EDiaryEntry implements Serializable {
     private Integer attr_i_5;
 
     @ColumnInfo(name = "attr_6")
-    private Integer attr_i_6;
+    private String attr_s_6;
 
     @ColumnInfo(name = "attr_7")
     private Float attr_f_7;
@@ -97,9 +97,9 @@ public class EDiaryEntry implements Serializable {
 
     public void setAttr_i_5(Integer attr_i_5) { this.attr_i_5 = attr_i_5; }
 
-    public Integer getAttr_i_6() { return attr_i_6; }
+    public String getAttr_s_6() { return attr_s_6; }
 
-    public void setAttr_i_6(Integer attr_i_6) { this.attr_i_6 = attr_i_6; }
+    public void setAttr_s_6(String attr_s_6) { this.attr_s_6 = attr_s_6; }
 
     public Float getAttr_f_7() { return attr_f_7; }
 

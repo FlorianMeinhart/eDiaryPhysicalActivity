@@ -94,13 +94,19 @@ public class MainActivity extends AppCompatActivity {
 
                 //generate data
                 StringBuilder data = new StringBuilder();
-                data.append("ID,ATTR_01,ATTR_02,ATTR_03,ATTR_04");
+                data.append("ID,DATE_TIME,ATTR_01,ATTR_02,ATTR_03,ATTR_04,ATTR_05,ATTR_06,ATTR_07,ATTR_08,ATTR_08");
                 for (EDiaryEntry entry : entries) {
                     data.append("\n"+entry.getId()+","
+                                    +entry.getDate_time_str()+","
                                     +entry.getAttr_str_1()+","
                                     +entry.getAttr_str_2()+","
                                     +entry.getAttr_str_3()+","
-                                    +entry.isAttr_bl_4());
+                                    +entry.isAttr_bl_4()+","
+                                    +entry.getAttr_i_5()+","
+                                    +entry.getAttr_s_6()+","
+                                    +entry.getAttr_f_7()+","
+                                    +entry.getAttr_str_8()+","
+                                    +entry.getAttr_str_9());
                 }
 
                 // Export data

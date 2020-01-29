@@ -130,7 +130,18 @@ public class AddEntryActivity extends AppCompatActivity {
         final String sAttr3 = editTextAttr3.getText().toString().trim();
         final boolean bAttr4 = checkedTextViewAttr4.isChecked();
         final Integer iAttr5 = seekBarAttr5.getProgress();
-        final Integer iAttr6 = radioGroupAttr6.getCheckedRadioButtonId();
+
+        String bufferString = new String();
+        int selectedRadioButtonID = radioGroupAttr6.getCheckedRadioButtonId();
+        // If nothing is selected from Radio Group, then it return -1
+        if (selectedRadioButtonID != -1) {
+            RadioButton selectedRadioButton = findViewById(selectedRadioButtonID);
+            bufferString = selectedRadioButton.getText().toString().trim();
+        } else {
+            bufferString = "Nothing selected";
+        }
+        final String sAttr6 = bufferString;
+
         final Float fAttr7 = ratingBarAttr7.getRating();
         final String sAttr8 = textViewDateAttr8.getText().toString().trim();
         final String sAttr9 = textViewTimeAttr9.getText().toString().trim();
@@ -154,7 +165,7 @@ public class AddEntryActivity extends AppCompatActivity {
                 entry.setAttr_str_3(sAttr3);
                 entry.setAttr_bl_4(bAttr4);
                 entry.setAttr_i_5(iAttr5);
-                entry.setAttr_i_6(iAttr6);
+                entry.setAttr_s_6(sAttr6);
                 entry.setAttr_f_7(fAttr7);
                 entry.setAttr_str_8(sAttr8);
                 entry.setAttr_str_9(sAttr9);

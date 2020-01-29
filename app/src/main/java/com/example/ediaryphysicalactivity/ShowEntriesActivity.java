@@ -43,6 +43,7 @@ public class ShowEntriesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AddEntryActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
