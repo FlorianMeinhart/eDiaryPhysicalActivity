@@ -11,9 +11,19 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            //storeFile file("C:\\Users\\xxxxx\\AndroidStudioProjects\\HBEAT2\\app\\hbeat_android")
+            storeFile file("C:\\sr_config\\fmeinhart\\Dokumente\\MyDocs\\AndroidDev\\android_app_key\\androidAppKey.jks")
+            //storeFile rootProject.file('debug.keystore')
+            storePassword "pppppp"
+            keyAlias "androidAppKey"
+            keyPassword "pppppp"
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -46,4 +56,10 @@ dependencies {
 
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+
+    // Google Fit
+    implementation 'com.google.android.gms:play-services-fitness:18.0.0'
+    implementation 'com.google.android.gms:play-services-auth:17.0.0'
+
 }

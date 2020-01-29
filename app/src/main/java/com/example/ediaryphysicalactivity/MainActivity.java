@@ -1,11 +1,20 @@
 package com.example.ediaryphysicalactivity;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.Scope;
+import com.google.android.gms.fitness.Fitness;
+import com.google.android.gms.fitness.data.DataPoint;
+import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -13,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +32,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDataPointListener,
+        GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
+
+
+    private static final int REQUEST_OAUTH = 1;
+    private static final String AUTH_PENDING = "auth_state_pending";
+    private boolean authInProgress = false;
+    private GoogleApiClient mApiClient;
+
+
 
     private FloatingActionButton buttonShowEntries;
 
@@ -46,6 +66,29 @@ public class MainActivity extends AppCompatActivity {
                  */
             }
         });
+
+
+        // Google Fit
+        if (savedInstanceState != null) {
+            authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
+        }
+
+        mApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Fitness.SENSORS_API)
+                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // Google Fit
+        mApiClient.connect();
+        Log.e( "GoogleFit", "mApiClient.connect()" );
     }
 
     @Override
@@ -139,6 +182,61 @@ public class MainActivity extends AppCompatActivity {
 
         GetEntriesForExport ge = new GetEntriesForExport();
         ge.execute();
+    }
+
+
+
+    // Google Fit
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        if( !authInProgress ) {
+            try {
+                authInProgress = true;
+                connectionResult.startResolutionForResult( MainActivity.this, REQUEST_OAUTH );
+            } catch(IntentSender.SendIntentException e ) {
+
+            }
+        } else {
+            Log.e( "GoogleFit", "authInProgress" );
+        }
+    }
+
+    @Override
+    public void onDataPoint(DataPoint dataPoint) {
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( requestCode == REQUEST_OAUTH ) {
+            Log.e( "GoogleFit", "REQUEST_OAUTH" );
+            authInProgress = false;
+            if( resultCode == RESULT_OK ) {
+                Log.e( "GoogleFit", "Got authorisation from Google Fit" );
+                if( !mApiClient.isConnecting() && !mApiClient.isConnected() ) {
+                    Log.e( "GoogleFit", "Re-trying connection with Fit" );
+                    mApiClient.connect();
+                }
+            } else if( resultCode == RESULT_CANCELED ) {
+                Log.e( "GoogleFit", "User cancelled the dialog" );
+            } else {
+                Log.e( "GoogleFit", "Authorisation failed, result code "+ resultCode);
+            }
+        } else {
+            Log.e("GoogleFit", "requestCode NOT request_oauth");
+        }
     }
 }
 
