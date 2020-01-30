@@ -32,16 +32,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements OnDataPointListener,
-        GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity {
 
 
     private static final int REQUEST_OAUTH = 1;
     private static final String AUTH_PENDING = "auth_state_pending";
     private boolean authInProgress = false;
     private GoogleApiClient mApiClient;
-
 
 
     private FloatingActionButton buttonShowEntries;
@@ -66,30 +63,8 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
                  */
             }
         });
-
-
-        // Google Fit
-        if (savedInstanceState != null) {
-            authInProgress = savedInstanceState.getBoolean(AUTH_PENDING);
-        }
-
-        mApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Fitness.SENSORS_API)
-                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ_WRITE))
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Google Fit
-        mApiClient.connect();
-        Log.e( "GoogleFit", "mApiClient.connect()" );
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,6 +83,11 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         if (id == R.id.send_data) {
             sendData();
+            return true;
+        }
+        if (id == R.id.google_fit_api) {
+            Intent intent = new Intent(MainActivity.this, GoogleFitActivity.class);
+            startActivity(intent);
             return true;
         }
 
@@ -182,61 +162,6 @@ public class MainActivity extends AppCompatActivity implements OnDataPointListen
 
         GetEntriesForExport ge = new GetEntriesForExport();
         ge.execute();
-    }
-
-
-
-    // Google Fit
-
-    @Override
-    public void onConnected(Bundle bundle) {
-
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        if( !authInProgress ) {
-            try {
-                authInProgress = true;
-                connectionResult.startResolutionForResult( MainActivity.this, REQUEST_OAUTH );
-            } catch(IntentSender.SendIntentException e ) {
-
-            }
-        } else {
-            Log.e( "GoogleFit", "authInProgress" );
-        }
-    }
-
-    @Override
-    public void onDataPoint(DataPoint dataPoint) {
-
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( requestCode == REQUEST_OAUTH ) {
-            Log.e( "GoogleFit", "REQUEST_OAUTH" );
-            authInProgress = false;
-            if( resultCode == RESULT_OK ) {
-                Log.e( "GoogleFit", "Got authorisation from Google Fit" );
-                if( !mApiClient.isConnecting() && !mApiClient.isConnected() ) {
-                    Log.e( "GoogleFit", "Re-trying connection with Fit" );
-                    mApiClient.connect();
-                }
-            } else if( resultCode == RESULT_CANCELED ) {
-                Log.e( "GoogleFit", "User cancelled the dialog" );
-            } else {
-                Log.e( "GoogleFit", "Authorisation failed, result code "+ resultCode);
-            }
-        } else {
-            Log.e("GoogleFit", "requestCode NOT request_oauth");
-        }
     }
 }
 

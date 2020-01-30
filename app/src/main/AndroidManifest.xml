@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
 
     <application
         android:allowBackup="false"
@@ -12,9 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowEntriesActivity"></activity>
-        <activity android:name=".AddEntryActivity"></activity>
-        <activity android:name=".UpdateEntryActivity"></activity>
+        <activity android:name=".GoogleFitActivity"></activity>
+        <activity android:name=".ShowEntriesActivity" />
+        <activity android:name=".AddEntryActivity" />
+        <activity android:name=".UpdateEntryActivity" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -31,12 +33,10 @@
             android:authorities="com.example.ediaryphysicalactivity.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
-
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
-
     </application>
 
 </manifest>
