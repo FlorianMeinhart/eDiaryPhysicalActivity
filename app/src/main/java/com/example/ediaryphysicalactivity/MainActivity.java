@@ -90,6 +90,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.google_fit_client_api) {
+            Intent intent = new Intent(MainActivity.this, GoogleFitClient.class);
+            startActivity(intent);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

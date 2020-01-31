@@ -3,4 +3,5 @@
     <string name="action_settings">Settings</string>
     <string name="send_data">Send data</string>
     <string name="google_fit_api">Google Fit</string>
+    <string name="google_fit_client_api">Google Fit Client</string>
 </resources>

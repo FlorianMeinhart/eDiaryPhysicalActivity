@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+    <uses-permission android:name="android.permission.BODY_SENSORS" />
 
     <application
         android:allowBackup="false"
@@ -13,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleFitActivity"></activity>
+        <activity android:name=".GoogleFitClient"></activity>
+        <activity android:name=".GoogleFitActivity" />
         <activity android:name=".ShowEntriesActivity" />
         <activity android:name=".AddEntryActivity" />
         <activity android:name=".UpdateEntryActivity" />
