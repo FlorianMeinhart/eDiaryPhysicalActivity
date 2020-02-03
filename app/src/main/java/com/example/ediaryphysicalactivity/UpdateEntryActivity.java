@@ -108,7 +108,8 @@ public class UpdateEntryActivity extends AppCompatActivity {
                             public void onTimeSet(TimePicker view, int hourOfDay,
                                                   int minute) {
 
-                                textViewTimeAttr9.setText(hourOfDay + ":" + minute);
+                                textViewTimeAttr9.setText(String.format("%02d", hourOfDay)
+                                        + ":" + String.format("%02d", minute));
                             }
                         }, mHour, mMinute, true);
                 timePickerDialog.show();

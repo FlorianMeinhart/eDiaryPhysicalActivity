@@ -47,8 +47,8 @@ public class GoogleFitClient extends AppCompatActivity {
     private static final int ACTIVITY_RECOGNITION_PERMISSION_CODE = 333;
     private static final int BODY_SENSOR_PERMISSION_CODE = 500;
 
-    //final DataType DATA_TYPE = DataType.TYPE_STEP_COUNT_DELTA;
-    final DataType DATA_TYPE = DataType.TYPE_HEART_RATE_BPM;
+    final DataType DATA_TYPE = DataType.TYPE_STEP_COUNT_DELTA;
+    //final DataType DATA_TYPE = DataType.TYPE_HEART_RATE_BPM;
 
     private static final String TAG = "GoogleFitClient";
 
@@ -60,11 +60,11 @@ public class GoogleFitClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_fit_client);
 
-        //checkPermission(Manifest.permission.ACTIVITY_RECOGNITION,
-        //        ACTIVITY_RECOGNITION_PERMISSION_CODE);
+        checkPermission(Manifest.permission.ACTIVITY_RECOGNITION,
+                ACTIVITY_RECOGNITION_PERMISSION_CODE);
 
-        checkPermission(Manifest.permission.BODY_SENSORS,
-                BODY_SENSOR_PERMISSION_CODE);
+        //checkPermission(Manifest.permission.BODY_SENSORS,
+        //        BODY_SENSOR_PERMISSION_CODE);
 
         FitnessOptions fitnessOptions = FitnessOptions.builder()
                 .addDataType(DATA_TYPE)
@@ -95,14 +95,14 @@ public class GoogleFitClient extends AppCompatActivity {
 
     private void googleFitHistoryClient() {
 
-        // Setting a start and end date using a range of 1 week before this moment.
+        // Setting a start and end time and date
         Calendar cal = Calendar.getInstance();
         Date now = new Date();
         cal.setTime(now);
         long endTime = cal.getTimeInMillis();
 
         //cal.add(Calendar.WEEK_OF_YEAR, -1);
-        cal.add(Calendar.WEEK_OF_YEAR, -52);
+        cal.add(Calendar.WEEK_OF_YEAR, -1);
         long startTime = cal.getTimeInMillis();
 
 
@@ -175,23 +175,23 @@ public class GoogleFitClient extends AppCompatActivity {
 
 
     // Function to check and request permission
-    public void checkPermission(String permission, int requestCode)
-    {
-        // Checking if permission is not granted
-        if (ContextCompat.checkSelfPermission(
-                this,
-                permission)
-                == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(
+        public void checkPermission(String permission, int requestCode)
+        {
+            // Checking if permission is not granted
+            if (ContextCompat.checkSelfPermission(
                     this,
-                    new String[] { permission },
-                    requestCode);
-        }
-        else {
-            Toast.makeText(this,
-                    permission+" \nPermission already granted",
-                    Toast.LENGTH_LONG)
-                    .show();
-        }
+                    permission)
+                    == PackageManager.PERMISSION_DENIED) {
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[] { permission },
+                        requestCode);
+            }
+            else {
+                Toast.makeText(this,
+                        permission+" \nPermission already granted",
+                        Toast.LENGTH_LONG)
+                        .show();
+            }
     }
 }

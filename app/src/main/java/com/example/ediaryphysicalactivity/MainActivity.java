@@ -96,6 +96,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.graph) {
+            Intent intent = new Intent(MainActivity.this, GraphViewActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);

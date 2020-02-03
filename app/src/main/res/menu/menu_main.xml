@@ -14,7 +14,6 @@
         android:id="@+id/google_fit_client_api"
         android:orderInCategory="3"
         android:title="@string/google_fit_client_api" />
-
     <item
         android:id="@+id/google_fit_calendar_api"
         android:orderInCategory="4"
@@ -24,4 +23,9 @@
         android:orderInCategory="5"
         android:title="@string/notification"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/graph"
+        android:orderInCategory="6"
+        android:title="@string/graph"
+        app:showAsAction="never" />
 </menu>
