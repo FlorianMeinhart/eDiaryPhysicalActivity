@@ -60,8 +60,8 @@ public class GoogleFitClient extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_fit_client);
 
-        checkPermission(Manifest.permission.ACTIVITY_RECOGNITION,
-                ACTIVITY_RECOGNITION_PERMISSION_CODE);
+        //checkPermission(Manifest.permission.ACTIVITY_RECOGNITION,
+        //        ACTIVITY_RECOGNITION_PERMISSION_CODE);
 
         checkPermission(Manifest.permission.BODY_SENSORS,
                 BODY_SENSOR_PERMISSION_CODE);

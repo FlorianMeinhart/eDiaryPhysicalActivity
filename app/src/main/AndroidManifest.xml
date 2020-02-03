@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
     <uses-permission android:name="android.permission.BODY_SENSORS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <application
         android:allowBackup="false"
@@ -14,7 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".GoogleFitClient"></activity>
+        <activity android:name=".SetNotificationActivity"></activity>
+        <activity android:name=".GoogleCalendarActivity" />
+        <activity android:name=".GoogleFitClient" />
         <activity android:name=".GoogleFitActivity" />
         <activity android:name=".ShowEntriesActivity" />
         <activity android:name=".AddEntryActivity" />
@@ -39,6 +43,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
         </provider>
+        <receiver android:name= ".MyNotificationPublisher" />
     </application>
 
 </manifest>

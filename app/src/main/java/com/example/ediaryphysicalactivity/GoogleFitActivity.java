@@ -5,8 +5,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,45 +12,31 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.common.Scopes;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResultCallback;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.common.api.Status;
+
 import com.google.android.gms.fitness.Fitness;
 import com.google.android.gms.fitness.FitnessOptions;
-import com.google.android.gms.fitness.data.Bucket;
 import com.google.android.gms.fitness.data.DataPoint;
 import com.google.android.gms.fitness.data.DataSet;
-import com.google.android.gms.fitness.data.DataSource;
 import com.google.android.gms.fitness.data.DataType;
 import com.google.android.gms.fitness.data.Field;
 import com.google.android.gms.fitness.data.Value;
 import com.google.android.gms.fitness.request.DataReadRequest;
-import com.google.android.gms.fitness.request.DataSourcesRequest;
-import com.google.android.gms.fitness.request.SensorRequest;
 import com.google.android.gms.fitness.result.DataReadResponse;
-import com.google.android.gms.fitness.result.DataReadResult;
-import com.google.android.gms.fitness.result.DataSourcesResult;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static java.text.DateFormat.getDateInstance;
@@ -74,8 +58,6 @@ public class GoogleFitActivity extends AppCompatActivity {
     private static final int ACTIVITY_RECOGNITION_PERMISSION_CODE = 333;
     private static final int BODY_SENSOR_PERMISSION_CODE = 555;
 
-    // actual Google API client
-    private GoogleApiClient mClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,9 +76,6 @@ public class GoogleFitActivity extends AppCompatActivity {
 
         checkPermission(Manifest.permission.ACTIVITY_RECOGNITION,
                 ACTIVITY_RECOGNITION_PERMISSION_CODE);
-
-        checkPermission(Manifest.permission.BODY_SENSORS,
-                BODY_SENSOR_PERMISSION_CODE);
 
 
         FitnessOptions fitnessOptions = FitnessOptions.builder()
@@ -233,37 +212,6 @@ public class GoogleFitActivity extends AppCompatActivity {
         Log.d(TAG, "Range End: " + dateFormat.format(endTime));
 
 
-        // Invoke the History API to fetch the data with the query and await the result of
-        // the read request.
-        /*
-        DataReadResult dataReadResult =
-                Fitness.HistoryApi.readData(mApiClient, readRequest).await(1, TimeUnit.MINUTES);
-        DataSet dataSet = dataReadResult.getDataSet(DataType.TYPE_HEART_RATE_BPM);
-        */
-
-        //Task<DataReadResponse> response = Fitness.getHistoryClient(this, GoogleSignIn.getLastSignedInAccount(this)).readData(readRequest);
-        //List<DataSet> dataSets = response.getResult().getDataSets();
-
-        //DataReadResult readDataResult = Tasks.await(response).getDataSets();
-        //List<DataSet> dataSets = readDataResult.getDataSets();
-
-        /*
-        DataSource ESTIMATED_STEP_DELTAS = new DataSource.Builder()
-                .setDataType(DataType.TYPE_STEP_COUNT_DELTA)
-                .setType(DataSource.TYPE_DERIVED)
-                .setStreamName("estimated_steps")
-                .setAppPackageName("com.example.ediaryphysicalactivity")
-                .build();
-        DataReadRequest readRequest = new DataReadRequest.Builder()
-                .aggregate(ESTIMATED_STEP_DELTAS,    DataType.AGGREGATE_STEP_COUNT_DELTA)
-                //.aggregate(DataType.TYPE_DISTANCE_DELTA, DataType.AGGREGATE_DISTANCE_DELTA)
-                //.aggregate(DataType.TYPE_CALORIES_EXPENDED, DataType.AGGREGATE_CALORIES_EXPENDED)
-                //.aggregate(DataType.TYPE_ACTIVITY_SEGMENT, DataType.AGGREGATE_ACTIVITY_SUMMARY)
-                .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
-                .bucketByTime(1, TimeUnit.DAYS)
-                .build();
-        */
-
         final DataReadRequest readRequest = new DataReadRequest.Builder()
                 .read(DataType.TYPE_STEP_COUNT_DELTA)
                 //.read(DataType.TYPE_HEART_RATE_BPM)
@@ -321,55 +269,5 @@ public class GoogleFitActivity extends AppCompatActivity {
             }
         }
     }
-
-
-
-
-    /*
-    private void buildSensors() {
-        mClient = new GoogleApiClient.Builder(this)
-                .addApi(Fitness.SENSORS_API)
-                .addScope(new Scope(Scopes.FITNESS_BODY_READ))
-                .addScope(new Scope(Scopes.FITNESS_ACTIVITY_READ))
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
-
-        DataSourcesRequest dataSourcesRequest = new DataSourcesRequest.Builder()
-                .setDataTypes(DataType.TYPE_HEART_RATE_BPM)
-                .setDataSourceTypes(DataSource.TYPE_RAW) // data type, raw or derived?
-                .build();
-
-        Fitness.SensorsApi.findDataSources(mClient, dataSourcesRequest).setResultCallback(this);
-    }
-
-    @Override
-    public void onResult(DataSourcesResult dataSourcesResult) {
-        // On New Source Result
-        for (final DataSource dataSource : dataSourcesResult.getDataSources()) {
-
-            // Request updates from this source, samplingRate
-            SensorRequest sensorRequest = new SensorRequest.Builder()
-                    .setDataSource(dataSource) // Optional but recommended for custom data sets.
-                    .setDataType(dataSource.getDataType()) // Can't be omitted.
-                    .setSamplingRate(1, TimeUnit.SECONDS)
-                    .build();
-
-            Log.i(TAG, "Fitness.SensorsApi.add for " + dataSource.toString() + " and type " + dataSource.getDataType().getName());
-            Fitness.SensorsApi.add(mClient, sensorRequest, this)
-                    //Can be removed later
-                    .setResultCallback(new ResultCallback<Status>() {
-                        @Override
-                        public void onResult(Status status) { // This might be important later on "Cannot register listener to source"
-                            if (status.isSuccess()) {
-                                Log.i(TAG, "Listener registered!");
-                            } else {
-                                Log.e(TAG, "Unable to register listener for source: " + dataSource.toString());
-                            }
-                        }
-                    });
-        }
-    }
-    */
 
 }

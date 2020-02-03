@@ -4,4 +4,6 @@
     <string name="send_data">Send data</string>
     <string name="google_fit_api">Google Fit</string>
     <string name="google_fit_client_api">Google Fit Client</string>
+    <string name="google_fit_calendar_api">Google Calendar</string>
+    <string name="notification">Notify</string>
 </resources>

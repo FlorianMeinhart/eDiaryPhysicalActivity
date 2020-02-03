@@ -1,28 +1,19 @@
 package com.example.ediaryphysicalactivity;
 
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentSender;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.Scope;
-import com.google.android.gms.fitness.Fitness;
-import com.google.android.gms.fitness.data.DataPoint;
-import com.google.android.gms.fitness.request.OnDataPointListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,6 +86,17 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.google_fit_calendar_api) {
+            Intent intent = new Intent(MainActivity.this, GoogleCalendarActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.notification) {
+            Intent intent = new Intent(MainActivity.this, SetNotificationActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
