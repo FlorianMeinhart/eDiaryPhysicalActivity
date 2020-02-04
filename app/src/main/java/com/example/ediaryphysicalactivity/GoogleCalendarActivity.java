@@ -18,8 +18,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import static java.lang.System.currentTimeMillis;
@@ -33,7 +37,6 @@ public class GoogleCalendarActivity extends AppCompatActivity {
     private Button btnGetInfo;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,17 +48,87 @@ public class GoogleCalendarActivity extends AppCompatActivity {
         btnGetInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showCalendarRecords();
-                //showCalendars();
 
-                addEvent ();
+                addEvent();
+
+                //showCalendarRecords();
+                showCalendars();
+                showCalendarEvents();
+
             }
         });
 
         checkPermission(Manifest.permission.READ_CALENDAR, CALENDAR_READ_PERMISSION_CODE);
         checkPermission(Manifest.permission.WRITE_CALENDAR, CALENDAR_WRITE_PERMISSION_CODE);
 
+    }
 
+
+    private void showCalendarEvents() {
+        String[] projection = new String[] {
+                CalendarContract.Events.CALENDAR_ID,
+                CalendarContract.Events.TITLE,
+                CalendarContract.Events.DESCRIPTION,
+                CalendarContract.Events.DTSTART,
+                CalendarContract.Events.DTEND,
+                CalendarContract.Events.ALL_DAY,
+                CalendarContract.Events.EVENT_LOCATION };
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY,0);
+        startTime.set(Calendar.MINUTE,0);
+        startTime.set(Calendar.SECOND, 0);
+
+        Calendar endTime= Calendar.getInstance();
+        endTime.set(Calendar.HOUR_OF_DAY,0);
+        endTime.set(Calendar.MINUTE,0);
+        endTime.set(Calendar.SECOND, 0);
+        endTime.add(Calendar.DATE, 1);
+
+        String selection = "(( " + CalendarContract.Events.DTSTART + " >= "
+                + startTime.getTimeInMillis() + " ) AND ( "
+                + CalendarContract.Events.DTSTART + " <= "
+                + endTime.getTimeInMillis()
+                + " ) AND ( deleted != 1 ))";
+
+
+        // Checking if permission is not granted --> run query
+        if (ContextCompat
+                .checkSelfPermission(this, Manifest.permission.READ_CALENDAR)
+                != PackageManager.PERMISSION_DENIED) {
+
+            Cursor cursor = getApplicationContext()
+                    .getContentResolver()
+                    .query(CalendarContract.Events.CONTENT_URI,
+                            projection,
+                            selection,
+                            null,
+                            null);
+
+            String event;
+            String eventDate;
+
+            DateFormat dateFormatEvent = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+            Date dateTypeEvent;
+
+            List<String> events = new ArrayList<>();
+            if (cursor != null && cursor.getCount() > 0 && cursor.moveToFirst()) {
+                do {
+                    event = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.TITLE));
+                    eventDate = cursor.getString(cursor.getColumnIndex(CalendarContract.Events.DTSTART));
+
+                    Log.i("EVENT", "-----------------------------------------------------------------");
+
+                    Log.i("Title", event);
+
+                    dateTypeEvent = new Date(Long.parseLong(eventDate, 10) );
+                    Log.i("Date", dateFormatEvent.format(dateTypeEvent)+"\n");
+
+                    events.add(event);
+
+                } while (cursor.moveToNext());
+            }
+        }
     }
 
 
@@ -184,12 +257,12 @@ public class GoogleCalendarActivity extends AppCompatActivity {
                 resIsPrimary = cur.getInt(PROJECTION_CALENDAR_IS_PRIMARY_INDEX);
 
                 // Do something with the values...
-                Log.i("CALENDAR:", "ID: " + resCalID);
-                Log.i("CALENDAR:", "Display Name: " + resDisplayName);
-                Log.i("CALENDAR:", "Account Name: " + resAccountName);
-                Log.i("CALENDAR:", "Account Type: " + resAccountType);
-                Log.i("CALENDAR:", "Calendar Access Level: " + resCalAccessLevel);
-                Log.i("CALENDAR:", "Is Primary: " + resIsPrimary);
+                Log.i("CALENDAR", "ID: " + resCalID);
+                Log.i("Info", "Display Name: " + resDisplayName);
+                Log.i("Info", "Account Name: " + resAccountName);
+                Log.i("Info", "Account Type: " + resAccountType);
+                Log.i("Info", "Calendar Access Level: " + resCalAccessLevel);
+                Log.i("Info", "Is Primary: " + resIsPrimary);
 
             }
         }
@@ -242,6 +315,10 @@ public class GoogleCalendarActivity extends AppCompatActivity {
 
         }
     }
+
+
+
+
 
 
     // Function to check and request permission

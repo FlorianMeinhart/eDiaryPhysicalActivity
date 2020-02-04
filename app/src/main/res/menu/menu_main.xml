@@ -28,4 +28,9 @@
         android:orderInCategory="6"
         android:title="@string/graph"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/weather"
+        android:orderInCategory="6"
+        android:title="@string/weather"
+        app:showAsAction="never" />
 </menu>

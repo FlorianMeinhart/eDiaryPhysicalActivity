@@ -158,7 +158,6 @@ public class GraphViewActivity extends AppCompatActivity {
 
 
 
-
     private void plotData(DataSet dataSet) {
 
         final int MAX_DATA_POINTS = dataSet.getDataPoints().size();
@@ -172,7 +171,7 @@ public class GraphViewActivity extends AppCompatActivity {
         for (com.google.android.gms.fitness.data.DataPoint dp : dataSet.getDataPoints()) {
 
             xStart = dp.getEndTime(TimeUnit.MILLISECONDS);
-            Log.i("mdg", "\tStart: " + dp.getStartTime(TimeUnit.MILLISECONDS));
+            Log.i("TIMESTAMP", "\tStart: " + dp.getStartTime(TimeUnit.MILLISECONDS));
 
             for(Field field : dp.getDataType().getFields()) {
 
@@ -185,10 +184,12 @@ public class GraphViewActivity extends AppCompatActivity {
                 if (fieldName.trim().equals("steps")) {
 
                     sumSteps += val.asInt();
+                    //dataPoints[i] = new DataPoint(xStart, val.asInt());
                 }
             }
 
             dataPoints[i] = new DataPoint(xStart, sumSteps);
+
 
             i++;
         }

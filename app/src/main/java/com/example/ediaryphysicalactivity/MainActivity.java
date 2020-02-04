@@ -6,7 +6,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
@@ -24,12 +23,6 @@ import java.io.FileOutputStream;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-
-    private static final int REQUEST_OAUTH = 1;
-    private static final String AUTH_PENDING = "auth_state_pending";
-    private boolean authInProgress = false;
-    private GoogleApiClient mApiClient;
 
 
     private FloatingActionButton buttonShowEntries;
@@ -98,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
         }
         if (id == R.id.graph) {
             Intent intent = new Intent(MainActivity.this, GraphViewActivity.class);
+            startActivity(intent);
+            return true;
+        }
+        if (id == R.id.weather) {
+            Intent intent = new Intent(MainActivity.this, WeatherActivity.class);
             startActivity(intent);
             return true;
         }

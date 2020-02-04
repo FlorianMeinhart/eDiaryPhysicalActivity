@@ -66,4 +66,8 @@ dependencies {
     // GraphView
     implementation 'com.jjoe64:graphview:4.2.2'
 
+
+    // Weather
+    implementation 'com.github.androdocs:Simple-HTTP-Request:v1.0'
+
 }
