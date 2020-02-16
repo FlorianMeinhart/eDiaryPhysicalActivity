@@ -99,6 +99,11 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
             return true;
         }
+        if (id == R.id.speech2text) {
+            Intent intent = new Intent(MainActivity.this, SpeechToTextActivity.class);
+            startActivity(intent);
+            return true;
+        }
 
 
         return super.onOptionsItemSelected(item);

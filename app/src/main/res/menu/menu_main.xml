@@ -30,7 +30,12 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/weather"
-        android:orderInCategory="6"
+        android:orderInCategory="7"
         android:title="@string/weather"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/speech2text"
+        android:orderInCategory="8"
+        android:title="@string/speech2text"
         app:showAsAction="never" />
 </menu>

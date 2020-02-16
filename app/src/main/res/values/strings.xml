@@ -8,4 +8,5 @@
     <string name="notification">Notify</string>
     <string name="graph">Graph</string>
     <string name="weather">Wetter</string>
+    <string name="speech2text">Speech Recognition</string>
 </resources>
