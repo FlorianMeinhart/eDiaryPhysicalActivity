@@ -82,10 +82,7 @@ public class SpeechToTextActivity extends AppCompatActivity {
     private void checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-                finish();
+                requestPermissions(new String[]{Manifest.permission.RECORD_AUDIO}, REQUEST_CODE_SPEECH_RECOGNIZER);
             }
         }
     }
