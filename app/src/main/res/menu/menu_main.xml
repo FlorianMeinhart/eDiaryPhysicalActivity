@@ -38,4 +38,14 @@
         android:orderInCategory="8"
         android:title="@string/speech2text"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/shealth"
+        android:orderInCategory="9"
+        android:title="@string/shealth"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/shealth_sc"
+        android:orderInCategory="10"
+        android:title="@string/shealth_sc"
+        app:showAsAction="never" />
 </menu>

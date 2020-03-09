@@ -9,4 +9,6 @@
     <string name="graph">Graph</string>
     <string name="weather">Weather</string>
     <string name="speech2text">Speech Recognition</string>
+    <string name="shealth">SHealth Data</string>
+    <string name="shealth_sc">SHealth Step Count</string>
 </resources>

@@ -105,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
 
+        if (id == R.id.shealth) {
+            Intent intent = new Intent(MainActivity.this, SHealthActivity.class);
+            startActivity(intent);
+            return true;
+        }
+
+        if (id == R.id.shealth_sc) {
+            Intent intent = new Intent(MainActivity.this, SHealthActivityStepCount.class);
+            startActivity(intent);
+            return true;
+        }
+
 
         return super.onOptionsItemSelected(item);
     }
