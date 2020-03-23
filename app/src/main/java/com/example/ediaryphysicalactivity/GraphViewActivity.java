@@ -78,16 +78,12 @@ public class GraphViewActivity extends AppCompatActivity {
         cal.add(Calendar.DAY_OF_MONTH, -numLastDays);
         startTime = cal.getTimeInMillis();
 
-        loadDataGoogleFit(numLastDays);
+        loadDataGoogleFit();
 
     }
 
 
-
-
-
-
-    public void loadDataGoogleFit(int numLastDays) {
+    public void loadDataGoogleFit() {
 
         // Google Fit API
 
@@ -105,8 +101,7 @@ public class GraphViewActivity extends AppCompatActivity {
 
         // Task to load data
         Task<DataReadResponse> response =
-                Fitness
-                        .getHistoryClient(this, googleSignInAccount)
+                Fitness.getHistoryClient(this, googleSignInAccount)
                         .readData(new DataReadRequest.Builder()
                                 .read(DATA_TYPE)
                                 .setTimeRange(startTime, endTime, TimeUnit.MILLISECONDS)
@@ -129,10 +124,8 @@ public class GraphViewActivity extends AppCompatActivity {
                             public void onFailure(@NonNull Exception e) {
                                 Log.e("", "Problem: Loading data.", e);
                             }
-                        });;
+                        });
     }
-
-
 
 
     // Function to check and request permission
@@ -155,7 +148,6 @@ public class GraphViewActivity extends AppCompatActivity {
                     .show();
         }
     }
-
 
 
     private void plotData(DataSet dataSet) {
@@ -189,7 +181,6 @@ public class GraphViewActivity extends AppCompatActivity {
             }
 
             dataPoints[i] = new DataPoint(xStart, sumSteps);
-
 
             i++;
         }

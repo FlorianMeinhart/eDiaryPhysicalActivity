@@ -279,8 +279,8 @@ public class SHealthActivityStepCount extends AppCompatActivity {
         try {
             resolver.read(request).setResultListener(mListenerHeartRate);
         } catch (Exception e) {
-            Log.e(SHealthActivityStepCount.APP_TAG, "Getting step count fails.", e);
-            tvSHealthInfo.setText("Getting step count fails.");
+            Log.e(SHealthActivityStepCount.APP_TAG, "Getting heart rate fails.", e);
+            tvSHealthInfo.setText("Getting heart rate fails.");
         }
     }
 

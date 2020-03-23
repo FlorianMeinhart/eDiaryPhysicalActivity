@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
             protected void onPostExecute(List<EDiaryEntry> entries) {
                 super.onPostExecute(entries);
 
-                //generate data
+                // only for testing --> generating some data
                 StringBuilder data = new StringBuilder();
                 data.append("ID,DATE_TIME,ATTR_01,ATTR_02,ATTR_03,ATTR_04,ATTR_05,ATTR_06,ATTR_07,ATTR_08,ATTR_08");
                 for (EDiaryEntry entry : entries) {
