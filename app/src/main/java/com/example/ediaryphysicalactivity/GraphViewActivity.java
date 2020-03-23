@@ -39,7 +39,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static java.text.DateFormat.getTimeInstance;
 
 public class GraphViewActivity extends AppCompatActivity {
 
